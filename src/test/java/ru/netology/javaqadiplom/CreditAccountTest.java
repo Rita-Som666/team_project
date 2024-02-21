@@ -127,7 +127,7 @@ public class CreditAccountTest {
     public void shouldNotChangePercentIfBalanceMoreZero(){
         account.add(200);
         int actual = account.yearChange();
-        int expected = 200;
+        int expected = 0;
         Assertions.assertEquals(expected, actual);
 
     }
