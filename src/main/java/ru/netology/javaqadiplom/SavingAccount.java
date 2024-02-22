@@ -74,14 +74,19 @@ public class SavingAccount extends Account {
      */
     @Override
     public boolean pay(int amount) {
-        balance = balance - amount;
-        if (balance < 0) {
+
+        if (balance - amount < minBalance) {
             return false;
         }
+
+        balance = balance - amount;
+
 
         if (balance >= minBalance) {
             return true;
         } else {
+
+            balance = balance + amount;
             return false;
         }
     }
