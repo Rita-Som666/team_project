@@ -18,7 +18,7 @@ public class CreditAccountTest {
     );
 
     @Test
-    public void shouldCreateAccWithInitialBalanceMoreZero(){
+    public void shouldCreateAccWithInitialBalanceMoreZero() {
         int expected = 25;
         int actual = account1.getBalance();
         Assertions.assertEquals(expected, actual);
@@ -34,12 +34,11 @@ public class CreditAccountTest {
     }
 
 
-
     @Test
-    public void shouldThrowIfInitialBalanceBellowZero(){
+    public void shouldThrowIfInitialBalanceBellowZero() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount badAcc =  new CreditAccount(
+            CreditAccount badAcc = new CreditAccount(
                     -100,
                     5_000,
                     15
@@ -47,13 +46,12 @@ public class CreditAccountTest {
         });
 
 
-
     }
 
     @Test
-    public void shouldThrowIfCreditLimitBellowZero(){
+    public void shouldThrowIfCreditLimitBellowZero() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount badAcc =  new CreditAccount(
+            CreditAccount badAcc = new CreditAccount(
                     0,
                     -5_000,
                     15
@@ -63,9 +61,9 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldThrowIfRateBellowZero(){
+    public void shouldThrowIfRateBellowZero() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount badAcc =  new CreditAccount(
+            CreditAccount badAcc = new CreditAccount(
                     0,
                     5_000,
                     -15
@@ -75,7 +73,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void NotPayIfMoreLimit(){
+    public void NotPayIfMoreLimit() {
 
         account.pay(6000);
         int expected = 0;
@@ -85,7 +83,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPaySuccess(){
+    public void shouldPaySuccess() {
 
         account1.pay(27);
         int expected = -2;
@@ -95,7 +93,19 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldTopUpBalance(){
+    public void shouldPaySuccess1() {
+
+        account.add(100);
+
+        account.pay(25);
+        int expected = 75;
+        int actual = account.getBalance();
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldTopUpBalance() {
 
         account1.add(100);
         int expected = 125;
@@ -105,7 +115,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotChangeBalanceIfAmountBellowZero(){
+    public void shouldNotChangeBalanceIfAmountBellowZero() {
 
         account1.add(-100);
         int expected = 25;
@@ -115,7 +125,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldCalculatePercent(){
+    public void shouldCalculatePercent() {
         account.pay(200);
         int actual = account.yearChange();
         int expected = -30;
@@ -124,16 +134,13 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotChangePercentIfBalanceMoreZero(){
+    public void shouldNotChangePercentIfBalanceMoreZero() {
         account.add(200);
         int actual = account.yearChange();
         int expected = 0;
         Assertions.assertEquals(expected, actual);
 
     }
-
-
-
 
 
 }
