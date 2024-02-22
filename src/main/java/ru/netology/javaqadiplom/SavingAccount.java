@@ -75,7 +75,7 @@ public class SavingAccount extends Account {
     @Override
     public boolean pay(int amount) {
         balance = balance - amount;
-        if (balance > 0) {
+        if (balance < 0) {
             return false;
         }
 
