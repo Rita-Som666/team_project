@@ -148,7 +148,6 @@ public class SavingAccountTest {
                 10);
 
 
-
         Assertions.assertEquals(9_000, account.getBalance());
 
     }
@@ -200,7 +199,7 @@ public class SavingAccountTest {
     public void paymentAmountEqualToInitialBalance() {   ///сумма покупки равна текущему балансу
         SavingAccount account = new SavingAccount(
                 5_000,
-                500,
+                0,
                 15_000,
                 10);
 
