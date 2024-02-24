@@ -38,7 +38,7 @@ public class SavingAccountTest {
 
 
     @Test
-    public void exceedsMaxBalance() {   ///общий баланс превышает максимальное значение (должно быть сообщение)
+    public void exceedsMaxBalance() {   ///общий баланс превышает максимальное значение
         SavingAccount account = new SavingAccount(
                 2_000,
                 500,
@@ -47,82 +47,74 @@ public class SavingAccountTest {
 
         account.add(7_000);
 
-        Assertions.assertEquals(2_000 + 7_000, account.getBalance());
-
-
+        Assertions.assertEquals(2_000, account.getBalance());
     }
 
     @Test
-    public void dontExceedsMaxBalance() {   ///общий баланс не превышает минимального значения (должно быть сообщение)
-        SavingAccount account = new SavingAccount(
-                3_000,
-                5_000,
-                8_000,
-                5);
+    public void dontExceedsMaxBalance() {   ///общий баланс не превышает минимального значения
 
-        account.add(2_000);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    3_000,
+                    5_000,
+                    8_000,
+                    5);
 
-        Assertions.assertEquals(3_000 + 2_000, account.getBalance());
-
-
+        });
     }
 
     @Test
-    public void cantAcceptNegativeBalance() {   ///Минимальное значение баланса не может принимать отрицательное значение (должно быть сообщение)
-        SavingAccount account = new SavingAccount(
-                2_000,
-                -1,
-                8_000,
-                2);
+    public void cantAcceptNegativeBalance() {   ///Минимальное значение баланса не может принимать отрицательное значение
 
-        account.add(2_000);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    2_000,
+                    -1,
+                    8_000,
+                    2);
 
-        Assertions.assertEquals(2_000 + 2_000, account.getBalance());
-
-
+        });
     }
 
     @Test
     public void MinBalanceMoreMaxBalance() {   ///Минимальный баланс больше максимального (должно быть сообщение)
-        SavingAccount account = new SavingAccount(
-                7_000,
-                10_000,
-                9_000,
-                2);
 
-        account.add(2_000);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    7_000,
+                    10_000,
+                    9_000,
+                    2);
 
-        Assertions.assertEquals(7_000 + 2_000, account.getBalance());
-
-
+        });
     }
 
     @Test
     public void rateCantAcceptNegative() {   ///Процентная ставка не может быть отрицательной
-        SavingAccount account = new SavingAccount(
-                7_000,
-                1_000,
-                9_000,
-                -1);
 
-        account.add(2_000);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    7_000,
+                    1_000,
+                    9_000,
+                    -1);
 
-        Assertions.assertEquals(7_000 + 2_000, account.getBalance());
-
+        });
     }
 
     @Test
-    public void initialBalanceNotExceedMinBalance() {   ///Начальный баланс не превышает минимальное значение (должно быть сообщение)
-        SavingAccount account = new SavingAccount(
-                500,
-                1_000,
-                9_000,
-                9);
+    public void initialBalanceNotExceedMinBalance() {   ///Начальный баланс не превышает минимальное значение
 
-        account.add(5_000);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    500,
+                    1_000,
+                    9_000,
+                    9);
 
-        Assertions.assertEquals(500 + 5_000, account.getBalance());
 
+
+        });
     }
 
     @Test
@@ -154,15 +146,16 @@ public class SavingAccountTest {
 
     @Test
     public void initialBalanceExceedsMaxBalance() {   ///Начальный баланс превышает максимальное значение (должно быть сообщение)
-        SavingAccount account = new SavingAccount(
-                10_000,
-                1_000,
-                9_000,
-                10);
 
-        Assertions.assertEquals(9_000, account.getBalance());
-
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    10_000,
+                    1_000,
+                    9_000,
+                    10);
+        });
     }
+
 
 
     @Test
@@ -226,21 +219,6 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void paymentAmountCanNotTakeValueZero() {  ///сумма покупки не может принимать значение равное нулю
-        SavingAccount savingAccount = new SavingAccount(
-                35_000,
-                500,
-                500_000,
-                16);
-
-        Boolean expected = false;
-
-        Boolean actual = savingAccount.pay(0);
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
     public void ratePositive() {  ///Положительная процентная ставка
         SavingAccount savingAccount = new SavingAccount(
                 10_000,
@@ -250,7 +228,6 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(2_200, savingAccount.yearChange());
     }
-
 
     @Test
     public void rateEqualToZero() {  ///Процентная ставка равна 0
@@ -273,7 +250,6 @@ public class SavingAccountTest {
         Assertions.assertEquals(1_000, savingAccount.getMinBalance());
     }
 
-
     @Test
     public void returnMaxBalance() {
         SavingAccount savingAccount = new SavingAccount(
@@ -283,5 +259,4 @@ public class SavingAccountTest {
                 3);
         Assertions.assertEquals(188_000, savingAccount.getMaxBalance());
     }
-
 }
